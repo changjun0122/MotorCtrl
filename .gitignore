@@ -1,0 +1,36 @@
+# 编译产物与中间文件（不该进仓库）
+Debug/
+Release/
+build/
+cmake-build-*/
+Objects/
+Listings/
+Output/
+*.o
+*.obj
+*.d
+*.su
+*.elf
+*.hex
+*.bin
+*.map
+*.axf
+*.lst
+*.crf
+*.dep
+*.lnp
+*.sct
+*.a
+*.lib
+*.bak
+*.tmp
+*.log
+*.uvguix.*
+
+# 编辑器 / 系统缓存
+.vscode/
+.idea/
+.workbuddy/
+__pycache__/
+Thumbs.db
+.DS_Store
