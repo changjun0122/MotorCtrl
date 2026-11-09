@@ -2,7 +2,7 @@
 
 基于 STM32F103C8T6 与 TB6612 驱动芯片的直流电机控制工程，由 STM32CubeMX 生成、STM32CubeIDE（GCC）构建。
 
-> 当前状态：引脚与外设配置已完成（新增 ADC1、DMA、IWDG、TIM2 时基），控制逻辑尚未实现——`Core/Src/main.c` 的 USER CODE 2 区仍为空，主循环里只有 `HAL_IWDG_Refresh`；TIM、ADC、USART-DMA 均只做了初始化，未调用 Start，`Core/Inc/TB6612.h` 仍为空。本次改动未做编译验证。
+> 当前状态：引脚与外设配置已完成（新增 ADC1、DMA、IWDG、TIM2 时基），控制逻辑尚未实现——`Core/Src/main.c` 的 USER CODE 2 区仍为空，主循环里只有 `HAL_IWDG_Refresh`；TIM、ADC、USART-DMA 均只做了初始化，未调用 Start。`TB6612` 驱动刚开始实现：`TB6612_Init` / `TB6612_Stop` 已写好（Init 启动 TIM4_CH3 PWM 并拉高 STBY，Stop 清零占空比并拉低 AIN1/AIN2），`TB6612_SetDuty` 仍是空函数、`TB6612_Brake` 只有声明未实现，`main.c` 尚未调用。本次改动未做编译验证。
 
 ## 硬件与外设配置
 
