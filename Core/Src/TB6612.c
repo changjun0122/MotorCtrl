@@ -19,5 +19,40 @@ void TB6612_Stop(void)
 
 void TB6612_SetDuty(int16_t duty)
 {
-    
+    int32_t ccr;
+
+    if (duty > 1000)
+    {
+        duty = 1000;
+    }
+    else if (duty < -1000)
+    {
+        duty = -1000;
+    }
+    if (duty > 0)
+    {
+        __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, duty);
+        HAL_GPIO_WritePin(AIN1_GPIO_Port, AIN1_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(AIN2_GPIO_Port, AIN2_Pin, GPIO_PIN_RESET);
+    }
+    else if (duty < 0)
+    {
+        __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, -duty);
+        HAL_GPIO_WritePin(AIN1_GPIO_Port, AIN1_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(AIN2_GPIO_Port, AIN2_Pin, GPIO_PIN_SET);
+    }
+    else
+    {
+        TB6612_Stop();
+    }
+    ccr = (int32_t)duty * 3600 / 1000;
+    __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, ccr);
 }
+
+void TB6612_Break(void)
+{
+    // 断开电机驱动
+    __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, 0);
+    HAL_GPIO_WritePin(AIN1_GPIO_Port, AIN1_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(AIN2_GPIO_Port, AIN2_Pin, GPIO_PIN_SET);
+}   

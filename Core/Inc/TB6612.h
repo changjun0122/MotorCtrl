@@ -6,6 +6,6 @@
 void TB6612_Init(void);
 void TB6612_SetDuty(int16_t speed);
 void TB6612_Stop(void);
-void TB6612_Brake(void);
+void TB6612_Break(void);
 
 #endif
